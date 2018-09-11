@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Heading, Page, Paragraph } from 'src/ui/styles';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { incrementCount, decrementCount } from 'src/stores/store';
 
 const P1 = `Did you know that giraffes use their heads as weapons?`;
 const P2 = `
@@ -43,6 +45,7 @@ const StyledButton = styled.button`
 `;
 
 const MainView = (props) => {
+  const { incrementCount, decrementCount } = props;
   return (
     <Page>
       <Greeting>
@@ -50,11 +53,14 @@ const MainView = (props) => {
         <Paragraph>{P1}</Paragraph>
         <Paragraph>{P2}</Paragraph>
         <Paragraph>{P3}</Paragraph>
-        <StyledButton>Subtract</StyledButton>
-        <StyledButton>Add</StyledButton>
+        <StyledButton onClick={decrementCount}>Subtract</StyledButton>
+        <StyledButton onClick={incrementCount}>Add</StyledButton>
       </Greeting>
     </Page>
   )
 }
 
-export default MainView;
+export default connect(
+  (state, props) => ({}),
+  { incrementCount, decrementCount },
+)(MainView);
