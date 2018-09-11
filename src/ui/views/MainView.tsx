@@ -51,13 +51,14 @@ const SubHeading = Heading.extend`
 `;
 
 const MainView = (props) => {
-  const { incrementCount, decrementCount, total, operations } = props;
+  const { incrementCount, decrementCount, total, operations, doubles } = props;
   return (
     <Page>
       <Greeting>
         <Heading>Hello World!</Heading>
         <SubHeading>Total: {total}</SubHeading>
         <SubHeading>Operations: {operations}</SubHeading>
+        <SubHeading>Doubles: {doubles}</SubHeading>
         <Paragraph>{P1}</Paragraph>
         <Paragraph>{P2}</Paragraph>
         <Paragraph>{P3}</Paragraph>
@@ -69,6 +70,6 @@ const MainView = (props) => {
 }
 
 export default connect(
-  ({ total, operations}) => ({ total, operations }),
+  ({ total, operations, doubles}) => ({ total, operations, doubles }),
   { incrementCount, decrementCount },
 )(MainView);

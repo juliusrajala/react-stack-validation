@@ -1,34 +1,26 @@
 import produce from 'immer';
-import { delay, filter, map } from 'rxjs/operators';
-
-const INCREMENT = 'INCREMENT';
-const DECREMENT = 'DECREMENT';
-const ADD_OPERATION = 'ADD_OPERATION';
+import { INCREMENT, DECREMENT, ADD_OPERATION, ADD_DOUBLE } from 'src/stores/actionTypes';
 
 export const incrementCount = (value?: number): Action => ({ type: INCREMENT, payload: value || 1 });
 export const decrementCount = (value?: number): Action => ({ type: DECREMENT, payload: value || 1 });
 
-const addOperation = () => ({ type: ADD_OPERATION });
-
-export const delayEpic = (action$, state$) => action$.pipe(
-  filter((action: Action) => action && (action.type === INCREMENT || action.type === DECREMENT)),
-  delay(1000),
-  map(() => addOperation())
-);
+export const addOperation = () => ({ type: ADD_OPERATION });
+export const addDouble = () => ({ type: ADD_DOUBLE });
 
 interface State {
   lastOperator?: string;
   total: number;
   operations: number;
+  doubles: number;
 }
 
-interface Action {
+export interface Action {
   type: string;
   payload?: any;
 }
 
-const testReducer = (state: State = { total: 0, operations: 0 }, action): State => {
-  console.log('Initialization action', action);
+const testReducer = (state: State = { total: 0, operations: 0, doubles: 0 }, action: Action): State => {
+  console.log('Action', action.type);
   return produce<State>(state, draft => {
     switch (action.type) {
       case INCREMENT:
@@ -39,6 +31,9 @@ const testReducer = (state: State = { total: 0, operations: 0 }, action): State 
         return;
       case ADD_OPERATION:
         draft.operations = state.operations + 1;
+        return;
+      case ADD_DOUBLE:
+        draft.doubles = state.doubles + 1;
         return;
     }
   })

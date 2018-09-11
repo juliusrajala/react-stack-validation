@@ -4,18 +4,20 @@ import MainView from 'src/ui/views/MainView';
 import styled from 'styled-components';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import { createEpicMiddleware } from 'redux-observable';
-import testStore, { delayEpic } from 'src/stores/store';
+import { createEpicMiddleware, combineEpics } from 'redux-observable';
+import testStore from 'src/stores/store';
+import configureEpics from 'src/epics/configureEpics';
 
 const epicMiddleWare = createEpicMiddleware();
 
 function configureStore() {
+  const epics = configureEpics();
   const store = createStore(
     testStore,
     applyMiddleware(epicMiddleWare)
   );
 
-  epicMiddleWare.run(delayEpic);
+  epicMiddleWare.run(epics);
 
   return store;
 }
