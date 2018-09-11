@@ -5,8 +5,8 @@ const INCREMENT = 'INCREMENT';
 const DECREMENT = 'DECREMENT';
 const ADD_OPERATION = 'ADD_OPERATION';
 
-export const incrementCount = (value?: number) => ({ type: INCREMENT, value: value || 1 });
-export const decrementCount = (value?: number) => ({ type: DECREMENT, value: value || 1 });
+export const incrementCount = (value?: number): Action => ({ type: INCREMENT, payload: value || 1 });
+export const decrementCount = (value?: number): Action => ({ type: DECREMENT, payload: value || 1 });
 
 const addOperation = () => ({ type: ADD_OPERATION });
 
@@ -18,7 +18,7 @@ export const delayEpic = (action$, state$) => action$.pipe(
 
 interface State {
   lastOperator?: string;
-  count: number;
+  total: number;
   operations: number;
 }
 
@@ -27,27 +27,21 @@ interface Action {
   payload?: any;
 }
 
-// const immutableReducer = produce((state: State, action: Action) => {
-  
-// })
-
-const testReducer = (state: State = { count: 0, operations: 0 }, action: any) => {
+const testReducer = (state: State = { total: 0, operations: 0 }, action): State => {
   console.log('Initialization action', action);
-  switch(action.type) {
-    case INCREMENT:
-      return produce((state: State, draft: State): any => {
-        draft.count = state.count + action.payload.value;
-      });
-    case DECREMENT:
-      return produce((state: State, draft: State): any => {
-        draft.count = state.count - action.payload.value;
-      });
-    case ADD_OPERATION:
-      return produce((state: State, draft: State): any => {
+  return produce<State>(state, draft => {
+    switch (action.type) {
+      case INCREMENT:
+        draft.total = state.total + action.payload;
+        return;
+      case DECREMENT:
+        draft.total = state.total - action.payload;
+        return;
+      case ADD_OPERATION:
         draft.operations = state.operations + 1;
-      });
-    default: return state;
-  }
+        return;
+    }
+  })
 }
 
 export default testReducer;

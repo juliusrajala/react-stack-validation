@@ -44,23 +44,31 @@ const StyledButton = styled.button`
   }
 `;
 
+const SubHeading = Heading.extend`
+  font-size: 2rem;
+  color: blue;
+  padding: 5px 0px;
+`;
+
 const MainView = (props) => {
-  const { incrementCount, decrementCount } = props;
+  const { incrementCount, decrementCount, total, operations } = props;
   return (
     <Page>
       <Greeting>
         <Heading>Hello World!</Heading>
+        <SubHeading>Total: {total}</SubHeading>
+        <SubHeading>Operations: {operations}</SubHeading>
         <Paragraph>{P1}</Paragraph>
         <Paragraph>{P2}</Paragraph>
         <Paragraph>{P3}</Paragraph>
-        <StyledButton onClick={decrementCount}>Subtract</StyledButton>
-        <StyledButton onClick={incrementCount}>Add</StyledButton>
+        <StyledButton onClick={() => decrementCount()}>Subtract</StyledButton>
+        <StyledButton onClick={() => incrementCount()}>Add</StyledButton>
       </Greeting>
     </Page>
   )
 }
 
 export default connect(
-  (state, props) => ({}),
+  ({ total, operations}) => ({ total, operations }),
   { incrementCount, decrementCount },
 )(MainView);
