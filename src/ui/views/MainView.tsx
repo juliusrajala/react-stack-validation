@@ -19,6 +19,29 @@ const Greeting = styled.section`
   text-align: left;
 `;
 
+const StyledButton = styled.button`
+  border: 2px solid salmon;
+  color: salmon;
+  background: #fff;
+  margin: 10px;
+  float: right;
+  padding: 10px 20px;
+  font-family: Montserrat;
+  font-weight: 600;
+  font-size: 20px;
+  border-radius: 4px;
+  box-shadow: 2px 1px 9px 1px rgba(0,0,0,.2);
+
+  :hover {
+    background-color: salmon;
+    color: #fff;
+  }
+
+  :focus, :active {
+    box-shadow: 1px 0px 6px 1px rgba(0,0,0,.2);
+  }
+`;
+
 const MainView = (props) => {
   return (
     <Page>
@@ -27,6 +50,8 @@ const MainView = (props) => {
         <Paragraph>{P1}</Paragraph>
         <Paragraph>{P2}</Paragraph>
         <Paragraph>{P3}</Paragraph>
+        <StyledButton>Subtract</StyledButton>
+        <StyledButton>Add</StyledButton>
       </Greeting>
     </Page>
   )
