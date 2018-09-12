@@ -12,6 +12,7 @@ const epicMiddleWare = createEpicMiddleware();
 
 function configureStore() {
   const epics = configureEpics();
+
   const store = createStore(
     testStore,
     applyMiddleware(epicMiddleWare)

@@ -1,4 +1,4 @@
-import { createEpicMiddleware, combineEpics } from 'redux-observable';
+import { combineEpics } from 'redux-observable';
 import { delay, filter, map, pairwise, last } from 'rxjs/operators';
 import { Action, addDouble, addOperation } from 'src/stores/store';
 import { INCREMENT, DECREMENT } from 'src/stores/actionTypes';

@@ -3,17 +3,9 @@ import { Heading, Page, Paragraph } from 'src/ui/styles';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { incrementCount, decrementCount } from 'src/stores/store';
+import StatisticsTable from '../components/StatisticsTable';
 
-const P1 = `Did you know that giraffes use their heads as weapons?`;
-const P2 = `
-  I think this is super terrifying. Imagine going about your
-  business and just happening upon a pair of giraffes flailing their
-  heads at each other to assert superiority.
-`;
-const P3 = `
-  Nature can be weird. Then again, I'm sitting inside on a beautiful
-  and warm summer day, writing placeholders that nobody will likely read.
-`;
+const P1 = `Clicking buttons doesn't have to be a chore. Go ahead. :)`;
 
 const Greeting = styled.section`
   width: 600px;
@@ -25,7 +17,7 @@ const StyledButton = styled.button`
   border: 2px solid salmon;
   color: salmon;
   background: #fff;
-  margin: 10px;
+  margin: 20px 10px;
   float: right;
   padding: 10px 20px;
   font-family: Montserrat;
@@ -51,17 +43,13 @@ const SubHeading = Heading.extend`
 `;
 
 const MainView = (props) => {
-  const { incrementCount, decrementCount, total, operations, doubles } = props;
+  const { incrementCount, decrementCount } = props;
   return (
     <Page>
       <Greeting>
         <Heading>Hello World!</Heading>
-        <SubHeading>Total: {total}</SubHeading>
-        <SubHeading>Operations: {operations}</SubHeading>
-        <SubHeading>Doubles: {doubles}</SubHeading>
+        <StatisticsTable />
         <Paragraph>{P1}</Paragraph>
-        <Paragraph>{P2}</Paragraph>
-        <Paragraph>{P3}</Paragraph>
         <StyledButton onClick={() => decrementCount()}>Subtract</StyledButton>
         <StyledButton onClick={() => incrementCount()}>Add</StyledButton>
       </Greeting>
@@ -69,7 +57,6 @@ const MainView = (props) => {
   )
 }
 
-export default connect(
-  ({ total, operations, doubles}) => ({ total, operations, doubles }),
+export default connect(null,
   { incrementCount, decrementCount },
 )(MainView);

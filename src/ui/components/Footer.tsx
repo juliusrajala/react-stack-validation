@@ -1,8 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { HorizontalBar, StyledLink } from 'src/ui/styles';
 
-const FooterBar = HorizontalBar.extend`
+const FooterBar = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 1.3rem;
@@ -19,11 +18,8 @@ const FooterBar = HorizontalBar.extend`
 
 const Footer = () => (
   <FooterBar>
-    Exists thanks to the&nbsp;
-    <StyledLink target="_blank" href="https://spiceprogram.org">
-      Spice Program
-    </StyledLink>
+    This is a footer
   </FooterBar>
-)
+);
 
 export default Footer;
