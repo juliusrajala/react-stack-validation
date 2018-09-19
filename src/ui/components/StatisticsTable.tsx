@@ -37,17 +37,19 @@ interface IStatisticsTable {
 const StatisticsTable: React.StatelessComponent<IStatisticsTable> = (props) => {
   const { total, operations, doubles } = props;
   const renderHeading = (items: string[]) => (
-    <tr>{items.map(item => <th>{item}</th>)}</tr>
+    <tr>{items.map(item => <th key={item}>{item}</th>)}</tr>
   );
 
   const renderRow = (items: number[]) => (
-    <tr>{items.map(item => <td>{item}</td>)}</tr>
+    <tr>{items.map((item, idx: number) => <td key={`table-cell-${idx}`}>{item}</td>)}</tr>
   );
 
   return (
     <StyledTable>
-      {renderHeading(['Sum', 'Clicks', 'Doubles'])}
-      {renderRow([total, operations, doubles])}
+      <tbody>
+        {renderHeading(['Sum', 'Clicks', 'Doubles'])}
+        {renderRow([total, operations, doubles])}
+      </tbody>
     </StyledTable>
   )
 }

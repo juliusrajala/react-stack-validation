@@ -5,19 +5,19 @@ import styled from 'styled-components';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { createEpicMiddleware, combineEpics } from 'redux-observable';
-import testStore from 'src/stores/store';
+import testStore from 'src/stores/immerStore';
 import configureEpics from 'src/epics/configureEpics';
-
-const epicMiddleWare = createEpicMiddleware();
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 function configureStore() {
   const epics = configureEpics();
 
+  const epicMiddleWare = createEpicMiddleware();
   const store = createStore(
     testStore,
-    applyMiddleware(epicMiddleWare)
+    composeWithDevTools(applyMiddleware(epicMiddleWare))
   );
-
+  
   epicMiddleWare.run(epics);
 
   return store;
@@ -25,10 +25,11 @@ function configureStore() {
 
 const ReactApp = () => {
   const reduxStore = configureStore();
+  const { dispatch, getState } = reduxStore;
 
   if (process.env.NODE_ENV === 'development') {
     console.debug('Running app in Development Mode');
-    window['store'] = reduxStore;
+    window['redux'] = {dispatch, getState};
   }
 
   return ReactDOM.render(

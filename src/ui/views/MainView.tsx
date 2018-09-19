@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Heading, Page, Paragraph } from 'src/ui/styles';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { incrementCount, decrementCount } from 'src/stores/store';
-import StatisticsTable from '../components/StatisticsTable';
+import { incrementCount, decrementCount } from 'src/stores/immerStore';
+import StatisticsTable from 'src/ui/components/StatisticsTable';
 
 const P1 = `Clicking buttons doesn't have to be a chore. Go ahead. :)`;
 

@@ -1,8 +1,8 @@
 import produce from 'immer';
 import { INCREMENT, DECREMENT, ADD_OPERATION, ADD_DOUBLE } from 'src/stores/actionTypes';
 
-export const incrementCount = (value?: number): Action => ({ type: INCREMENT, payload: value || 1 });
-export const decrementCount = (value?: number): Action => ({ type: DECREMENT, payload: value || 1 });
+export const incrementCount = (value?: number): Action => ({ type: INCREMENT, payload: value });
+export const decrementCount = (value?: number): Action => ({ type: DECREMENT, payload: value });
 
 export const addOperation = () => ({ type: ADD_OPERATION });
 export const addDouble = () => ({ type: ADD_DOUBLE });
@@ -24,10 +24,10 @@ const testReducer = (state: State = { total: 0, operations: 0, doubles: 0 }, act
   return produce<State>(state, draft => {
     switch (action.type) {
       case INCREMENT:
-        draft.total = state.total + action.payload;
+        draft.total = state.total + (action.payload || 1);
         return;
       case DECREMENT:
-        draft.total = state.total - action.payload;
+        draft.total = state.total - (action.payload || 1);
         return;
       case ADD_OPERATION:
         draft.operations = state.operations + 1;
